@@ -5,29 +5,22 @@ import (
 	"fmt"
 	"os/exec"
 
-    "github.com/rivo/tview"
+    "github.com/Redeltaz/gofm/pkg/layout"
 )
 
 func Root() {
-	//newPrimitive := func(text string) tview.Primitive {
-		//return tview.NewTextView().
-			//SetTextAlign(tview.AlignCenter).
-			//SetText(text)
-	//}
-	//main := newPrimitive("Main content")
+    tui := layout.TUI{}
 
-	grid := tview.NewGrid().
-		SetRows(0).
-		SetColumns(0).
-		SetBorders(true)
+    firstGrid := tui.CreateGrid()
+    tui.Init("tui", firstGrid)
 
 	// Layout for screens narrower than 100 cells (menu and side bar are hidden).
     //grid.AddItem(main, 0, 0, 1, 1, 0, 0, false)
 
 
-	if err := tview.NewApplication().SetRoot(grid, true).SetFocus(grid).Run(); err != nil {
-		panic(err)
-	}
+	//if err := tview.NewApplication().SetRoot(grid, true).SetFocus(grid).Run(); err != nil {
+		//panic(err)
+	//}
 }
 
 func command() {

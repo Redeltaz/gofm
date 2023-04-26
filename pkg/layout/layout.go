@@ -11,11 +11,24 @@ type TUI struct {
 
 type TUISetup interface {
     Init() *tview.Application
+    CreateGrid() *tview.Grid
 }
 
-func (l TUI) Init(name string) *TUI{
-    t := TUI{Name: name}
+func (t TUI) Init(name string, root tview.Primitive) (*TUI, error){
+    t.Name = name
     t.App = tview.NewApplication()
 
-    return &t
+    err := t.App.SetRoot(root, true).SetFocus(root).Run()
+    if err != nil {
+        return nil, err
+    }
+
+    return &t, nil
+}
+
+func (t TUI) CreateGrid() *tview.Grid {
+    return tview.NewGrid().
+            SetRows(1, 2).
+            SetColumns(2,3).
+            SetBorders(true)
 }
