@@ -5,22 +5,15 @@ import (
 	"fmt"
 	"os/exec"
 
-    "github.com/Redeltaz/gofm/pkg/layout"
+    "github.com/Redeltaz/gofm/pkg/tui"
 )
 
 func Root() {
-    tui := layout.TUI{}
-
-    firstGrid := tui.CreateGrid()
-    tui.Init("tui", firstGrid)
-
-	// Layout for screens narrower than 100 cells (menu and side bar are hidden).
-    //grid.AddItem(main, 0, 0, 1, 1, 0, 0, false)
-
-
-	//if err := tview.NewApplication().SetRoot(grid, true).SetFocus(grid).Run(); err != nil {
-		//panic(err)
-	//}
+    tui := tui.CreateTUI()
+    
+    if err := tui.Start(); err != nil {
+        panic(err)
+    }
 }
 
 func command() {
