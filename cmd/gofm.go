@@ -1,26 +1,21 @@
 package cmd
 
 import (
-	"bytes"
-	"fmt"
-	"os/exec"
+	//"fmt"
 
-    "github.com/Redeltaz/gofm/pkg/tui"
+	//"github.com/Redeltaz/gofm/pkg/tui"
+	"fmt"
+
+	"github.com/Redeltaz/gofm/pkg/controller"
 )
 
-func Root() {
-    tui := tui.CreateTUI()
+func Root(c *controller.Controller) {
+    //tui := tui.CreateTUI()
     
-    if err := tui.Start(); err != nil {
-        panic(err)
-    }
-}
-
-func command() {
-    cmd := exec.Command("ls")
-    buff := bytes.Buffer{}
-    cmd.Stdout = &buff
-    err := cmd.Run()
-
-    fmt.Print(buff.String(), err)
+    //if err := tui.Start(); err != nil {
+        //panic(err)
+    //}
+    //fmt.Println(c.CWD)
+    c.GetDirContent()
+    fmt.Println(c.CurrentContent)
 }
