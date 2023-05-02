@@ -39,7 +39,7 @@ func InitController() *Controller {
     return controller
 }
 
-func (c *Controller) GetDirContent() {
+func (c *Controller) GetDirContent() []File {
     files, err := ioutil.ReadDir(c.CWD)
     if err != nil {
         log.Fatal(err)

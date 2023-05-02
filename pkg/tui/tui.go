@@ -2,6 +2,7 @@ package tui
 
 import (
 	"github.com/rivo/tview"
+	"github.com/Redeltaz/gofm/pkg/controller"
 )
 
 type TUI struct {
@@ -17,11 +18,11 @@ type TUISetup interface {
     Start() error
 }
 
-func CreateTUI() *TUI{
+func CreateTUI(content []controller.File) *TUI{
     t := &TUI{}
     t.App = tview.NewApplication()
 
-    t.Navigator = tview.NewTextView().SetTextAlign(tview.AlignCenter).SetText("navigator")
+    //t.Navigator = tview.NewTextView().SetTextAlign(tview.AlignCenter).SetText(content)
     t.Preview = tview.NewTextView().SetTextAlign(tview.AlignCenter).SetText("preview")
     t.Info = tview.NewTextView().SetTextAlign(tview.AlignCenter).SetText("Info")
 
