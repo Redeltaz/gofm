@@ -14,16 +14,13 @@ type TUI struct {
     Info *tview.TextView
 }
 
-type TUISetup interface {
-    Start() error
-    UpdateNavigator()
-}
-
 func CreateTUI(c *controller.Controller) *TUI{
     t := &TUI{}
     t.App = tview.NewApplication()
+    t.App.SetInputCapture(t.InputHandler)
 
     t.Navigator = tview.NewList()
+
     t.Preview = tview.NewTextView().SetTextAlign(tview.AlignCenter).SetText("preview")
     t.Info = tview.NewTextView().SetTextAlign(tview.AlignCenter).SetText("Info")
 
