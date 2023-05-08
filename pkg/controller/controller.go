@@ -4,8 +4,8 @@ import (
 	"io/fs"
 	"io/ioutil"
 	"log"
-	"os/exec"
-	"strings"
+	"os"
+	"sort"
 )
 
 type Controller struct {
@@ -18,28 +18,26 @@ type File struct {
     Size int64
     Permissions fs.FileMode
     lastModified string
-    isDir bool
 }
 
 type ControllerActions interface {
-    GetDirContent()
+    SetCurrentContent()
 }
 
 func InitController() *Controller {
     controller := &Controller{}
 
-    cmd := exec.Command("pwd")
-    out, err := cmd.Output()
+    path, err := os.Getwd()
     if err != nil {
         log.Fatal(err)
     }
 
-    controller.CWD = strings.TrimSuffix(string(out), "\n")
+    controller.CWD = path
 
     return controller
 }
 
-func (c *Controller) GetDirContent() []File {
+func (c *Controller) SetCurrentContent() {
     files, err := ioutil.ReadDir(c.CWD)
     if err != nil {
         log.Fatal(err)
@@ -53,9 +51,12 @@ func (c *Controller) GetDirContent() []File {
             file.Size(),
             file.Mode(),
             file.ModTime().Format("1 jan 06 03:04PM"),
-            file.IsDir(),
         })
     }
+
+    sort.SliceStable(dirContent, func(i, j int) bool {
+        return dirContent[i].Permissions.IsDir() && !dirContent[j].Permissions.IsDir()
+    })
 
     c.CurrentContent = dirContent
 }

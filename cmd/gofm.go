@@ -1,20 +1,17 @@
 package cmd
 
 import (
-    "fmt"
-
     "github.com/Redeltaz/gofm/pkg/tui"
 	"github.com/Redeltaz/gofm/pkg/controller"
 )
 
 func Root() {
     controller := controller.InitController()
-    controller.GetDirContent()
+    controller.SetCurrentContent()
 
-    tui := tui.CreateTUI(controller.CurrentContent)
+    tui := tui.CreateTUI(controller)
     
     if err := tui.Start(); err != nil {
         panic(err)
     }
-    fmt.Println(controller.CurrentContent)
 }
