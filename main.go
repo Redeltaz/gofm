@@ -1,9 +1,9 @@
 package main
 
 import (
-    "github.com/Redeltaz/gofm/cmd"
+	"github.com/Redeltaz/gofm/cmd"
 )
 
 func main() {
-    cmd.Root()
+	cmd.Root()
 }
