@@ -20,10 +20,6 @@ type File struct {
 	lastModified string
 }
 
-type ControllerActions interface {
-	SetCurrentContent()
-}
-
 func InitController() *Controller {
 	controller := &Controller{}
 
